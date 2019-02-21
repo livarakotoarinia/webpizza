@@ -31,3 +31,33 @@ $dev_domains = [
   "localhost",
   "webpizza.local"
 ];
+
+/**
+ * 3. Définition des variables de base de donnée
+ */
+
+// Liste des configurations de connections aux bases de données par défaut
+$db_config = [];
+
+// Liste des connections aux base de données
+// Cette liste sera nourris par le dichier db_connect.php
+$db = [];
+
+// Inclusion de la config de la base de données
+require_once "database.php";
+
+/**
+ * 4. Définition des variables de routage
+ */
+
+// Définition de l'uri par défaut
+$uri = "/";
+
+// Définition de la table de routage par défaut
+$routes = [];
+
+// Contient les informations de la route courante
+$route = [];
+
+// Inclusion de la config du routage
+require_once "routes.php";
