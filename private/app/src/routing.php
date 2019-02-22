@@ -32,7 +32,6 @@ foreach ($routes as $route) {
         break;
     }
 }
-
 // A ce niveau soit la variable $route est renseignée grace à un URI trouvé
 // dans le tableau $route, soit elle à pris la valeur de la dernière itération
 // du tableau $route, C.A.D. la route 404
