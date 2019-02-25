@@ -24,7 +24,7 @@ foreach ($routes as $route) {
     if($uri == $route[1]){
         // On ajoute le nom de la route courante dans la variable $GLOBALS de PHP
         // Pour l'utiliser par la suite.
-        $GLOBAL['route_active'] = $route[0];
+        $GLOBALS['route_active'] = $route[0];
 
         // Si la route est trouvé dans la table de routage on sort de la boucle
         // grace au mot clé "break;"
