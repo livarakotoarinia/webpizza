@@ -9,37 +9,48 @@
  *      - Le "controller", la focntion déclenché par la route
  *      - La|Les méthode(s)
  */
+ $routes = [
+     
+     // Route Index (page d'accueil du site)
+     ["homepage", "/", "homepage:index", ["HEAD","GET"]],
 
-$routes = [
-
-    // Route Index (page d'accueil du site)
-    ["homepage", "/", "homepage:index", ["HEAD","GET"]],
-
-    // Liste des produits
+     // Liste des produits
     ["pizzas", "/pizzas", "products:pizzas", ["HEAD","GET"]],
     ["salads", "/salades", "products:salads", ["HEAD","GET"]],
     ["desserts", "/desserts", "products:desserts", ["HEAD","GET"]],
     ["drinks", "/boissons", "products:drinks", ["HEAD","GET"]],
     ["menus", "/menus", "products:menus", ["HEAD","GET"]],
 
+    ["product_create", "/admin/product/create", "products:create", ["HEAD","GET","POST"]],
+    ["product_update", "/admin/product/update", "products:update", ["HEAD","GET","POST"]],
+    ["product_delete", "/admin/product/delete", "products:delete", ["HEAD","GET","POST"]],
+
     // Page de traitement du formulaire de contact
     ["contact", "/contact", "contact:index", ["HEAD","POST"]],
 
     // Pages de sécurité
     ["login", "/connexion", "security:login", ["HEAD","GET","POST"]],
+    ["logout", "/deconnexion", "security:logout", ["HEAD","GET","POST"]],
     ["register", "/inscription", "security:register", ["HEAD","GET","POST"]],
-    ["forgotten_password", "/mot-de-passe-oublie", "security:forgotten_password", ["HEAD","GET","POST"]],
-
+    ["forgotten_password", "/mot-de-passe-oublie", "security:forgotten_password", ["HEAD","GET"]],
+    ["modif_password", "/modification-mot-de-passe", "security:modif_password", ["HEAD","GET"]],
+    
     // Page de commande
     ["order", "/panier", "order:index", ["HEAD","GET"]],
-
+    // Ajout de produit au pannier
+    ["add_to_order", "/add-to-order", "order:add", ["HEAD","GET"]],
+    
     // Profil utilisateur
     ["account", "/mon-compte", "account", ["HEAD","GET"]],
-
+    
     // ---
-
+    
+    
     // Erreur 404 
     // /!\ TOUJOURS EN DERNIER DU TABLEAU ROUTE
     ["error-404", "/404", "errors:404", ["HEAD","GET"]]
-
+    
 ];
+    // if(isset($_SESSION['user']['id']) && !empty($_SESSION['user']['id'])){
+    //     array_push($routes, [""]);
+    // }

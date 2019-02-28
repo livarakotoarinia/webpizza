@@ -99,6 +99,18 @@ textarea {
     transition: all 0.3s;
 }
 
+.dropdown-menu{
+    /* text-decoration: none; */
+    background-color: rgba(192, 10, 39, 0.8);
+}
+
+.form-link{
+    margin-top: 1rem;
+    text-align: center;
+}
+#login h2, #register h2{
+    margin-bottom: 2rem;
+}
 /**
    * FOOTER
    * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 

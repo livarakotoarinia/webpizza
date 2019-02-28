@@ -23,7 +23,6 @@ foreach ($db_config as $name => $params) {
     $db_pass = $params['pass'];
     // Instance de connection
     $db[$name] = new PDO($db_dsn, $db_user, $db_pass);
-    $GLOBALS['data_base'] = $db[$name];
 
     // COmportement des erreurs PDO
     if ($env == 'dev'){
