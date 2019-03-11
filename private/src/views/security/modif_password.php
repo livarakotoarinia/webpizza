@@ -17,7 +17,7 @@ include_once "../private/src/views/layout/header.php";
                     <input class="form-control" type="password" name="new-password" placeholder="Votre nouveau mot de passe">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="password" name="new-password-res" placeholder="Ressaisir votre mot de passe">
+                    <input class="form-control" type="password" name="re-password" placeholder="Ressaisir votre mot de passe">
                 </div>
 
                 <button class="btn btn-success btn-block">Valider</button>

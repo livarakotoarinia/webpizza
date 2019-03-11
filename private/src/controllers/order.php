@@ -12,7 +12,7 @@ function order_index()
     // ...
     
     // Intégration de la vue
-    include_once "../private/src/views/order/index.php";
+    include_once "../private/src/views/order/panier.php";
 }
 
 function order_add() 

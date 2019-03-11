@@ -26,9 +26,9 @@ function security_login(){
         $q->execute();
         $r = $q->fetchAll(PDO::FETCH_ASSOC);
     
-        var_dump($r[0]['password']);
-        var_dump(password_hash('a123456A', PASSWORD_DEFAULT));
-        var_dump(password_verify($password_text, $r[0]['password']));
+        // var_dump($r[0]['password']);
+        // var_dump(password_hash('a123456A', PASSWORD_DEFAULT));
+        // var_dump(password_verify($password_text, $r[0]['password']));
         if(empty($r)){
             $isValid = false;
         }
@@ -40,9 +40,8 @@ function security_login(){
                 redirect();
             }else{
                 $isValid = false;
+                setFlashbag("danger","oops, mauvais identifiants....");
             }
-        }else{
-            setFlashbag("danger","oops, mauvais identifiants....");
         }
     }
     include_once "../private/src/views/security/login.php";
@@ -139,6 +138,7 @@ function security_modif_password(){
         $email = $_SESSION['user']['email'];
         $old_pwd_text = isset($_POST['old-password']) ? $_POST['old-password'] : null;
         $new_pwd_text = isset($_POST['new-password']) ? $_POST['new-password'] : null;
+        $re_pwd_text = isset($_POST['re-password']) ? $_POST['re-password'] : null;
         $new_pwd_hash  = password_hash($new_pwd_text, PASSWORD_DEFAULT);
         
         $q = $db['main']->prepare("SELECT * FROM `users` WHERE `email`=:email");
@@ -154,7 +154,7 @@ function security_modif_password(){
 
         if($isValid){
             // Test si le champs 'ancien mot de passe' correspond aux password de la BDD
-            if(password_verify($old_pwd_text, $r['password'])){
+            if(password_verify($old_pwd_text, $r['password']) && ($new_pwd_text == $re_pwd_text)){
                 unset($r[0]['password']);
                 $q = $db['main']->prepare("UPDATE users SET `password` = :newPwd WHERE `email` = :email");
                 $q->bindValue(":email", $email, PDO::PARAM_STR);
@@ -163,6 +163,7 @@ function security_modif_password(){
                 redirect("/mon-compte");
             }else{
                 $isValid = false;
+                setFlashbag("danger","oops, les nouveaux mot de passe ne correspondent pas");
             }
         }else{
             setFlashbag("danger","oops, mauvais mots de passe....");

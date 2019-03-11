@@ -65,8 +65,6 @@
                                 <?php if( $_SESSION['user']['email'] == "anisuki59@hotmail.fr"): ?>
                                 <div class="dropdown-divider"></div>
                                 <a href="/admin/product/create" class="text-dark dropdown-item">Ajouter</a>
-                                <a href="/admin/product/update" class="text-dark dropdown-item">Modifier</a>
-                                <a href="/admin/product/delete" class="text-dark dropdown-item">Supprimer</a>
                                 <?php endif; ?>
                             </div>
                             </li>

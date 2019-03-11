@@ -1,4 +1,5 @@
-<form method="post" class="crud-form" novalidate>
+<section class="mt-3 title">
+    <form method="post" class="crud-form" novalidate>
    
             <div class="form-group">
                 <label for="name">Name</label>
@@ -26,9 +27,9 @@
                     <option value="<?= $type ?>"><?= $type ?></option>
                     <?php endforeach; ?>
                 </select>
-            </div>
-        
+            </div>  
 
             <button class="btn btn-success btn-block" type="submit">Valider</button>
       
-</form>
+    </form>
+</section>

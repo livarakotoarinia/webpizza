@@ -15,9 +15,11 @@
                             <h5 class="card-title"><?= $product["name"] ?></h5>
                             <p class="card-text"><?= join(", ", $product['ingredients']) ?></p>
                             <p class="card-text"><?= $product['price'] ?> &euro;</p>
-                            <a href="/add-to-order?id=<?= $product['id'] ?>" class="btn btn-block btn-success">Ajouter au panier</a>                        <!-- ?php if(isset($_SESSION['user']) && $_SESSION['user']['email'] == "anisuki59@hotmail.fr"): ?>
-                            <a href="/admin/product/update?id=?= $product['id'] ?>" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">Modifier produit</a>
-                        ?php endif; ?> -->
+                            <a href="/add-to-order?id=<?= $product['id'] ?>" class="btn btn-block btn-success">Ajouter au panier</a>                        
+                        <?php if(isset($_SESSION['user']) && $_SESSION['user']['email'] == "anisuki59@hotmail.fr"): ?>
+                        <a href="/admin/product/update?id=<?= $product['id'] ?>" class="btn btn-block btn-primary">Modifier produit</a>
+                        <a href="/admin/product/delete?id=<?= $product['id'] ?>" class="btn btn-block btn-danger">Supprimer produit</a>
+                        <?php endif; ?>
                         </div>
 
                     </div>

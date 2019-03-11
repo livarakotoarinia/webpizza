@@ -29,7 +29,7 @@ function products_pizzas(){
         }
         array_push($products[$product['productID']]['ingredients'], $product['ingredientName']);
     }
-
+    
     // echo "Page des pizzas WebPizza";
     include_once "../private/src/views/products/read.php";
 }
@@ -133,7 +133,6 @@ if(isset($_SESSION['user']) && $_SESSION['user']['email'] == "anisuki59@hotmail.
     }
 
     function products_update(){
-        // echo "MAJ #".$_GET['id'];
         global $db;
         $title = null;
         $content = null;
@@ -162,7 +161,10 @@ if(isset($_SESSION['user']) && $_SESSION['user']['email'] == "anisuki59@hotmail.
             // Récupération des données
             $title          = isset($_POST['title']) ? trim($_POST['title']) : null;
             $content        = isset($_POST['content']) ? trim($_POST['content']) : null;
-            $category_id    = isset($_POST['category']) ? trim($_POST['category']) : null;
+            $path_image     = isset($_POST['illustration']) ? trim($_POST['illustration']) : null;
+
+            $price          = isset($_POST['price']) ? trim($_POST['price']) : null;
+            $type           = isset($_POST['type']) ? trim($_POST['type']) : null;
 
             // Controle des données
             // if (valeur pas OK) {
@@ -172,34 +174,62 @@ if(isset($_SESSION['user']) && $_SESSION['user']['email'] == "anisuki59@hotmail.
             if ($isValid) {
 
                 // MAJ de la BDD
-                $query = $db->prepare("UPDATE articles SET `title`=:title, `content`=:content, `category_id`=:category_id WHERE id=:id");
+                $query = $db['main']->prepare("UPDATE products SET `name`=:title, `description`=:content, `illustration`=:illustration, `price`=:price, `type`=:type WHERE id=:id");
                 $query->bindValue(':title', $title, PDO::PARAM_STR);
                 $query->bindValue(':content', $content, PDO::PARAM_STR);
-                $query->bindValue(':category_id', $category_id, PDO::PARAM_INT);
+                $query->bindValue(':illustration', $path_image, PDO::PARAM_STR);
+                $query->bindValue(':price', $price, PDO::PARAM_STR);
+                $query->bindValue(':type', $type, PDO::PARAM_STR);
                 $query->bindValue(':id', $article_id, PDO::PARAM_INT);
 
-                $query->execute();
-
-                header("location: read.php?id=".$article_id);
-                exit;
+                $results = $query->execute();
+                // var_dump($results);
+                if($results){
+                    redirect("/mon-compte");
+                }else{
+                    setFlashbag("danger","Les données n'ont pas été enregistrées dans la BDD");
+                }
 
             }
         }
 
-        // -- AFFICHAGE DE L'ARTICLE DANS LE FORM (pt.2)
+        // -- AFFICHAGE DU PRODUIT DANS LE FORM (pt.2)
 
-        // Récupération de l'article
-        $query = $db->prepare("SELECT title, content, category_id FROM articles WHERE id=:id");
+        // Récupération du produits
+        $query = $db['main']->prepare("SELECT name, description, illustration, price, type FROM products WHERE id=:id");
         $query->bindValue(':id', $article_id, PDO::PARAM_INT);
         $query->execute();
 
         $article = $query->fetch(PDO::FETCH_ASSOC);
 
         if ($article) {
-            $title = $article['title'];
-            $content = $article['content'];
-            $category_id = $article['category_id'];
+            $title = $article['name'];
+            $content = $article['description'];
+            $path_image     = $article['illustration'];
+
+            $price          = $article['price'];
+            $type           = $article['type'];
         }
-        include_once "../private/src/views/products/crud/update.php";
+        include_once "../private/src/views/products/update.php";
+    }
+    function products_delete(){
+        global $db;
+
+        $article_id = isset($_GET['id']) ? trim($_GET['id']) : null;
+        // Test l'ID de l'article
+        if (empty($article_id)) {
+            echo "L'ID de l'article n'est pas défini..";
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
+            // $query = $db->prepare("DELETE FROM products WHERE id=:id");
+            // $query->bindValue(':id', $article_id, PDO::PARAM_INT);
+            // $query->execute();
+        
+            redirect();
+        }
+        include_once "../private/src/views/products/delete.php";
     }
 }
